@@ -1,0 +1,46 @@
+{% extends 'base.html' %}     <!--összekapcsol a fejlcéses base.hmtl-el-->
+{% load i18n %}
+
+
+
+{% block content_1 %}
+  {% get_current_language as LC %} <!-- LC be teszi vagy a hu vagy az en karaktert -->
+  
+  <div class="text-center" style="margin-top: 10px;"> <!--latest news and announcement-->
+    <h3 class="display-6" style="margin-top: 40px;">{% translate "Keresési eredmények" %}</h3>
+    {% if query %}
+      {% for item in all_egyutt %}  
+        <!-- elem:{{ forloop.counter }} -->
+        qurey: {{ query }}
+        
+          <div id="section{{ item.type }}{{ item.pk }}" class="carousel slide w-100 overflow-hidden text-center" data-bs-ride="carousel"> 
+
+            {% if LC == 'hu' %}  <!--ha magyar a nyelv-->
+              <h3>{{ item.titel_hu }}</h3>
+              <p style="text-align:justify">{{ item.short_text_hu }}</p>
+            {% endif %}
+            {% if LC == 'en' %}
+              <h3>{{ item.titel_en }}</h3>
+              <p style="text-align:justify">{{ item.short_text_en }}</p>
+            {% endif %}
+
+            {% if item.type == 'news' %}
+              <a href="{% url 'news_pk' %}?pk={{ item.pk }}"><button type="button" class="btn btn-outline-danger">{% translate "Olvass tovább" %}</button></a>   
+            {% elif item.type == 'ann' %}
+              <a href="{% url 'announc_pk' %}?pk={{ item.pk }}"><button type="button" class="btn btn-outline-danger">{% translate "Olvass tovább" %}</button></a>   
+            {% elif item.type == 'event' %}
+              <a href="{% url 'events' %}#section{{ item.pk }}"><button type="button" class="btn btn-outline-danger">{% translate "Olvass tovább" %}</button></a>   
+            {% endif %} 
+            
+            <hr> <!-- vonal--> 
+          </div>
+      {% empty %}
+          <p>{% translate "Nem található a keresésnek megfelelő elem" %}</p> 
+      {% endfor %}
+     {% else %} 
+          <p>{% translate "Nem adott meg keresési értéket" %}</p>
+     {% endif %}      
+
+</div>
+{% endblock %}
+

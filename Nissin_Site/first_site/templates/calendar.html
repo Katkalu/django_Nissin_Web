@@ -1,0 +1,105 @@
+{% load i18n %}
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+    <link href="{% static 'fullcalendar/packages/core/main.css' %}"  rel='stylesheet' />
+    <link href="{% static 'fullcalendar/packages/daygrid/main.css' %}"  rel='stylesheet' />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  </head>
+  <body>
+  
+  <div class="content">
+    <div id='calendar'></div>   <!-- ide kerül a naptár  -->
+    
+      {{ data|json_script:"data" }}   <!-- ide kerül az áthozott django model -adat   -->
+
+      <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'fullcalendar/packages/core/main.js' %}"></script>
+      <script src="{% static 'fullcalendar/packages/interaction/main.js' %}"></script>
+      <script src="{% static 'fullcalendar/packages/daygrid/main.js' %}"></script>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() 
+        { 
+          var calendarEl = document.getElementById('calendar');
+         // var events = func();
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: [ 'interaction', 'dayGrid' ],
+            defaultDate: Date.now(),   
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: 
+            [ 
+              {
+                title: 'All Day Event',
+                start: '2022-02-01'
+              },
+              {
+                title: 'Long Event',
+                start: '2022-02-07',
+                end: '2022-02-10'
+              }/*,
+              {
+                title: func(),
+                start: teszt_start
+              },
+              {
+                title: obj[0].fields.titel_hu,
+                start: obj[0].fields.start_date,
+                end: obj[0].fields.end_date
+              }*/
+            ]  
+          });
+          calendar.render();
+        });
+
+        const text = JSON.parse(document.getElementById('data').textContent);  //átvett adat
+        const obj = JSON.parse(text);  //a django adatból js objektum 
+        function func() {  //fgv ami össze építi a stringet
+              let value = '';
+              //value += '[';
+              for(var i = 0; i < obj.length; i++ )  
+              { 
+                value += "{";
+                value += 'title:' + "'" + obj[i].fields.titel_hu + "'" + ','; 
+                value += 'start:' + "'" + obj[i].fields.start_date + "'" + ','; 
+                value += 'end:' + "'" + obj[i].fields.end_date + "'" ; 
+                value += "}";
+                if(i<obj.length-1){value += ',';}
+              } 
+              //value += ']';
+            
+              var value1 = decodeURIComponent(value);  // decodolja a {} karaktert
+              return value;       
+            } 
+           var value_e = func();   //fgv meghívás, és változoba másolás
+           var value1 = decodeURIComponent(value_e);
+            console.log(func());
+            console.log(value1);
+           var teszt_cim = "Teszt változos esemény";
+           var teszt_start = "2022-02-19";
+           var teszt_szakasz ="{title:'teszt sazaksz',start:'2022-02-03',end:'2022-02-03'}";
+          //document.write(value1);  
+          //képernyőn: [{title:'TEszt esemény',start:'2022-02-15T12:00:00Z',end:'2022-02-15T18:00:00Z'},{title:'Második adatból',start:'2022-03-07T13:30:00Z',end:'2022-03-08T18:00:00Z'},{title:'Harmadik eseménmy',start:'2022-02-24T12:00:00Z',end:'2022-02-24T15:00:00Z'},{title:'Mai esemény',start:'2022-02-23T21:05:08Z',end:'2022-02-24T18:00:00Z'}]
+          
+      </script>
+    
+  </div>
+    
+  </body>
+</html>
+
+
+
+
+
+

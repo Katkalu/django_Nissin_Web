@@ -1,0 +1,86 @@
+
+{% extends 'base.html' %}     <!--összekapcsol a fejlcéses base.hmtl-el-->
+{% load i18n %}
+{% block content_1 %}
+
+  {% get_current_language as LC %} <!-- LC be teszi vagy a hu vagy az en karaktert -->
+  <div class=""> 
+    <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        {% for all_slide in all_slide %} <!--adatbázisban levő elemek számától függ-->
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %} active {% endif %}" aria-current="true" aria-label="{{ forloop.counter }}"></button>
+        {% endfor %}
+      </div>
+
+      <div class="carousel-inner">
+        {% for all_slide in all_slide %} <!--adatbázisban levő elemek számától függ-->
+          {% if LC == 'hu' %}  
+            <div class="carousel-item {% if forloop.first %} active {% endif %} w-100 overflow-hidden">
+              <img src="{{ all_slide.img_hu.url }}" class="d-block w-100" style="height:300px; object-fit:cover;" alt="..."> 
+            </div>
+          {% endif %}
+          {% if LC == 'en' %}  
+            <div class="carousel-item {% if forloop.first %} active {% endif %} w-100 overflow-hidden">
+              <img src="{{ all_slide.img_en.url }}" class="d-block w-100" style="height:300px; object-fit:cover;" alt="..."> 
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">{% translate "Előző" %}</span>
+      </button>
+      
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">{% translate "Következő" %}</span>
+      </button>
+    </div>  
+  </div>
+
+
+  <div class="text-center" style="margin-top: 10px;"> <!--latest news and announcement-->
+      <h3 class="display-6 focim" style="margin-top: 40px;">{% translate "Hírek és Közlemények" %}</h3>
+      {% for item in all_egyutt %}  
+        <!-- elem:{{ forloop.counter }} -->
+        {% if forloop.counter <= 10 %}  <!-- max 10 elem jelenik meg-->
+          <div id="section{{ item.type }}{{ item.pk }}" class="carousel slide w-100 overflow-hidden text-center" data-bs-ride="carousel"> 
+          
+            {% if item.img %} <!--ha van kép-->              
+              <img src="/media/{{ item.img}}"  class="d-block w-100 shadow mb-3" style="height:350px; object-fit:cover;" alt="..."> 
+            {% else %}
+              {% if item.type == 'news' %}
+                <img src="/static/images/default_news.jpg"  class="d-block w-100 shadow mb-3" style="height:350px; object-fit:cover;" alt="...">
+              {% elif item.type == 'ann' %}
+                <img src="/static/images/default_announcement.jpg"  class="d-block w-100 shadow mb-3" style="height:350px; object-fit:cover;" alt="...">
+              {% endif %}
+            {% endif %}  
+            
+            {% if LC == 'hu' %}  <!--ha magyar a nyelv-->
+              <h3>{{ item.titel_hu }}</h3>
+              <p style="text-align:justify">{{ item.short_text_hu }}</p>
+            {% endif %}
+            {% if LC == 'en' %}
+              <h3>{{ item.titel_en }}</h3>
+              <p style="text-align:justify">{{ item.short_text_en }}</p>
+            {% endif %}
+
+            {% if item.type == 'news' %}
+              <a href="{% url 'news_pk' %}?pk={{ item.pk }}"><button type="button" class="btn btn-outline-danger">{% translate "Olvass tovább" %}</button></a>   
+            {% elif item.type == 'ann' %}
+              <a href="{% url 'announc_pk' %}?pk={{ item.pk }}"><button type="button" class="btn btn-outline-danger">{% translate "Olvass tovább" %}</button></a>   
+            {% endif %} 
+            
+            <hr> <!-- vonal--> 
+          </div>
+        {% endif %}
+      {% endfor %}
+
+  </div>
+{% endblock %}
+
+
+
+
+

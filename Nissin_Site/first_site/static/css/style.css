@@ -1,0 +1,40 @@
+
+@font-face {
+  font-family: myFirstFont_regular;
+  src: url(/static/fonts/roboto/roboto-regular.ttf);
+}
+@font-face {
+  font-family: myFirstFont_thin;
+  src: url(/static/fonts/roboto/roboto-thin.ttf);
+}
+@font-face {
+  font-family: myFirstFont_medium;
+  src: url(/static/fonts/roboto/roboto-medium.ttf);
+}
+*{
+  font-family: myFirstFont_regular;
+}
+.focim{
+  font-family: myFirstFont_thin;
+}
+.a_link  a{
+    text-decoration: none;
+    color: gainsboro;
+  }
+  
+.a_link a:hover {
+    text-decoration: none;
+    color: dimgray;
+  }
+  
+.a_link a:active {
+    text-decoration: none;
+    color: dimgray;
+  }
+#content_main{
+  margin-top: 70px;
+}
+#icon_apps{
+  font-weight: bold;
+}
+

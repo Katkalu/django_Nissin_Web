@@ -1,0 +1,263 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-13 18:53+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\Nissin_Site\settings.py:116
+msgid "Hungarian"
+msgstr ""
+
+#: .\Nissin_Site\settings.py:117
+msgid "English"
+msgstr ""
+
+#: .\first_site\templates\announc_pk.html:22
+#: .\first_site\templates\announc_pk.html:31
+msgid "Dokumentum"
+msgstr ""
+
+#: .\first_site\templates\announc_pk.html:37
+#: .\first_site\templates\events_pk.html:32
+#: .\first_site\templates\news_pk.html:30
+msgid "Vissza a kezdőoldalra"
+msgstr ""
+
+#: .\first_site\templates\announc_pk.html:38
+msgid "Vissza a közleményekhez"
+msgstr ""
+
+#: .\first_site\templates\announcements.html:7
+#: .\first_site\templates\base.html:33
+msgid "Közlemények"
+msgstr ""
+
+#: .\first_site\templates\announcements.html:26
+#: .\first_site\templates\events.html:32 .\first_site\templates\home.html:70
+#: .\first_site\templates\home.html:72 .\first_site\templates\news.html:26
+#: .\first_site\templates\search_result.html:28
+#: .\first_site\templates\search_result.html:30
+#: .\first_site\templates\search_result.html:32
+msgid "Olvass tovább"
+msgstr ""
+
+#: .\first_site\templates\base.html:30 .\first_site\templates\news.html:7
+msgid "Hírek"
+msgstr ""
+
+#: .\first_site\templates\base.html:36 .\first_site\templates\events.html:6
+msgid "Események"
+msgstr ""
+
+#: .\first_site\templates\base.html:39 .\first_site\templates\base.html:189
+msgid "Naptár"
+msgstr ""
+
+#: .\first_site\templates\base.html:42 .\first_site\templates\documents.html:8
+msgid "Dokumentumok"
+msgstr ""
+
+#: .\first_site\templates\base.html:60
+msgid "Keresés"
+msgstr ""
+
+#: .\first_site\templates\base.html:65 .\first_site\templates\base.html:129
+msgid "Biztonságos napok száma"
+msgstr ""
+
+#: .\first_site\templates\base.html:72
+msgid "Nyelv"
+msgstr ""
+
+#: .\first_site\templates\base.html:123
+msgid "Első a biztonság"
+msgstr ""
+
+#: .\first_site\templates\base.html:135
+msgid "Hasznos linkek"
+msgstr ""
+
+#: .\first_site\templates\base.html:140
+msgid "Nexon"
+msgstr ""
+
+#: .\first_site\templates\base.html:146
+msgid "Andoc"
+msgstr ""
+
+#: .\first_site\templates\base.html:152
+msgid "Termékrendelés"
+msgstr ""
+
+#: .\first_site\templates\base.html:158
+msgid "IT Helpdesk"
+msgstr ""
+
+#: .\first_site\templates\base.html:164
+msgid "Ötletláda"
+msgstr ""
+
+#: .\first_site\templates\base.html:171
+msgid "OfficeTools"
+msgstr ""
+
+#: .\first_site\templates\base.html:177
+msgid "4iOP"
+msgstr ""
+
+#: .\first_site\templates\base.html:194
+msgid "Termelési számok"
+msgstr ""
+
+#: .\first_site\templates\base.html:202
+msgid "Érték"
+msgstr ""
+
+#: .\first_site\templates\base.html:212
+msgid "Százalékos változás"
+msgstr ""
+
+#: .\first_site\templates\base.html:222
+msgid "Abszolút változás"
+msgstr ""
+
+#: .\first_site\templates\documents.html:15
+#: .\first_site\templates\documents.html:179
+msgid "HR"
+msgstr ""
+
+#: .\first_site\templates\documents.html:23
+#: .\first_site\templates\documents.html:129
+msgid "IT"
+msgstr ""
+
+#: .\first_site\templates\documents.html:31
+#: .\first_site\templates\documents.html:229
+msgid "Production"
+msgstr ""
+
+#: .\first_site\templates\documents.html:39
+#: .\first_site\templates\documents.html:279
+msgid "Maintenance"
+msgstr ""
+
+#: .\first_site\templates\documents.html:47
+#: .\first_site\templates\documents.html:330
+msgid "QAQC"
+msgstr ""
+
+#: .\first_site\templates\documents.html:55
+#: .\first_site\templates\documents.html:380
+msgid "SCM"
+msgstr ""
+
+#: .\first_site\templates\documents.html:63
+msgid "R&D"
+msgstr ""
+
+#: .\first_site\templates\documents.html:71
+#: .\first_site\templates\documents.html:480
+msgid "Purchasing"
+msgstr ""
+
+#: .\first_site\templates\documents.html:79
+#: .\first_site\templates\documents.html:530
+msgid "Kaizen"
+msgstr ""
+
+#: .\first_site\templates\documents.html:87
+#: .\first_site\templates\documents.html:580
+msgid "Sales"
+msgstr ""
+
+#: .\first_site\templates\documents.html:95
+#: .\first_site\templates\documents.html:630
+msgid "Marketing"
+msgstr ""
+
+#: .\first_site\templates\documents.html:103
+#: .\first_site\templates\documents.html:680
+msgid "Finance & Controlling"
+msgstr ""
+
+#: .\first_site\templates\documents.html:111
+#: .\first_site\templates\documents.html:730
+msgid "GA"
+msgstr ""
+
+#: .\first_site\templates\documents.html:119
+#: .\first_site\templates\documents.html:780
+msgid "Egyéb"
+msgstr ""
+
+#: .\first_site\templates\documents.html:430
+msgid "R&M"
+msgstr ""
+
+#: .\first_site\templates\events.html:18 .\first_site\templates\events.html:27
+#: .\first_site\templates\events_pk.html:19
+#: .\first_site\templates\events_pk.html:26
+msgid "Kezdő dátum"
+msgstr ""
+
+#: .\first_site\templates\events.html:18 .\first_site\templates\events.html:27
+#: .\first_site\templates\events_pk.html:19
+#: .\first_site\templates\events_pk.html:26
+msgid "Befejező dátum"
+msgstr ""
+
+#: .\first_site\templates\events.html:19 .\first_site\templates\events.html:28
+#: .\first_site\templates\events_pk.html:20
+#: .\first_site\templates\events_pk.html:27
+msgid "Helyszín"
+msgstr ""
+
+#: .\first_site\templates\events_pk.html:33
+msgid "Vissza az eseményekhez"
+msgstr ""
+
+#: .\first_site\templates\home.html:32
+msgid "Előző"
+msgstr ""
+
+#: .\first_site\templates\home.html:37
+msgid "Következő"
+msgstr ""
+
+#: .\first_site\templates\home.html:44
+msgid "Hírek és Közlemények"
+msgstr ""
+
+#: .\first_site\templates\news_pk.html:31
+msgid "Vissza a hírekhez"
+msgstr ""
+
+#: .\first_site\templates\search_result.html:10
+msgid "Keresési eredmények"
+msgstr ""
+
+#: .\first_site\templates\search_result.html:38
+msgid "Nem található a keresésnek megfelelő elem"
+msgstr ""
+
+#: .\first_site\templates\search_result.html:41
+msgid "Nem adott meg keresési értéket"
+msgstr ""
+
+#: .\first_site\views.py:107
+msgid "hello"
+msgstr ""

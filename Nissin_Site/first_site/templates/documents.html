@@ -1,0 +1,1135 @@
+{% extends 'base.html' %}     <!--összekapcsol a fejlcéses base.hmtl-el-->
+{% load i18n %}
+{% block active_doc %}active{% endblock %}
+{% block content_1 %}
+
+{% get_current_language as LC %} <!-- LC be teszi vagy a hu vagy az en karaktert -->
+  <div class="container">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "Dokumentumok" %}</h1>
+
+    <div class="container" style="margin-bottom: 20px;">
+      <div class="row g-2">
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('hr')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "HR" %}</h5>
+              <small>{{ db_hr }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('it')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "IT" %}</h5>
+              <small>{{ db_it }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('production')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "Production" %}</h5>
+              <small>{{ db_production }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('maintenance')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "Maintenance" %}</h5>
+              <small>{{ db_maintenance }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('qaqc')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "QAQC" %}</h5>
+              <small>{{ db_qaqc }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('scm')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "SCM" %}</h5>
+              <small>{{ db_scm }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('r&d')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "R&D" %}</h5>
+              <small>{{ db_randd }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('purchasing')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "Purchasing" %}</h5>
+              <small>{{ db_purchasing }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('kaizen')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "Kaizen" %}</h5>
+              <small>{{ db_kaizen }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('sales')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "Sales" %}</h5>
+              <small>{{ db_sales }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('marketing')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "Marketing" %}</h5>
+              <small>{{ db_marketing }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('finance')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "Finance & Controlling" %}</h5>
+              <small>{{ db_finance }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('ga')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "GA" %}</h5>
+              <small>{{ db_ga }}</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-6">
+          <a href="#" class="p-3 btn w-100 btn-outline-danger btn-lg" onclick="myFunction('egyeb')">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{% translate "Egyéb" %}</h5>
+              <small>{{ db_egyeb }}</small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+  <div id="myDIV_it" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "IT" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'it' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_hr" style="display:block"> 
+    <h1 style="text-align:center" class="display-6 focim">{% translate "HR" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'hr' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1" style="color: brown;">{{ docu.titel_hu }}</h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1">{{ docu.titel_en }}</h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_production" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "Production" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'production' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1" style="color: brown;">{{ docu.titel_hu }}</h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1">{{ docu.titel_en }}</h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_maintenance" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "Maintenance" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'maintenance' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+
+  <div id="myDIV_qaqc" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "QAQC" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'qaqc' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_scm" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "SCM" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'scm' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_randd" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "R&M" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'r&d' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_purchasing" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "Purchasing" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'purchasing' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_kaizen" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "Kaizen" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'kaizen' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_sales" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "Sales" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'sales' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_marketing" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "Marketing" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'marketing' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_finance" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "Finance & Controlling" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'finance' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_ga" style="display:none">
+    <h1 style="text-align:center" class="display-6 focim">{% translate "GA" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'ga' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1 mr-2" style="color: brown;">{{ docu.titel_hu }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1 mr-2">{{ docu.titel_en }} </h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="myDIV_egyeb" style="display:none"> 
+    <h1 style="text-align:center" class="display-6 focim">{% translate "Egyéb" %}</h1>
+    <div class="list-group row g-3 ">
+      {% for docu in all_docu %}
+        {% if docu.department == 'egyeb' %}
+          <div class="list-group-item list-group p-3" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              {% if LC == 'hu' %} 
+                <h5 class="mb-1" style="color: brown;">{{ docu.titel_hu }}</h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %} Érvényes: {% endif %} {% if docu.valid_from %} {{ docu.valid_from }}-tól {% endif %} </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <h5 class="mb-1">{{ docu.titel_en }}</h5> 
+                {% if docu.valid_until  %}  {% if docu.valid_until < now %} <img src="/static/images/not_valid.png" alt="" height="40"> {% endif %}  {% endif %}
+                <small> {% if docu.valid_from or docu.valid_until %}  Valid {% endif %}  {% if docu.valid_from %} from {{ docu.valid_from }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"></h5>
+              {% if LC == 'hu' %} 
+              <small> {% if docu.valid_until %} {{ docu.valid_until }}-ig {% endif %}  </small>
+              {% endif %}
+              {% if LC == 'en' %} 
+                <small> {% if docu.valid_until %} until {{ docu.valid_until }} {% endif %} </small>
+              {% endif %}
+              
+            </div>
+            <p class="mb-1">
+              {% if LC == 'hu' %}{{ docu.short_text_hu }} {% endif %}
+              {% if LC == 'en' %}{{ docu.short_text_en }} {% endif %}
+            </p>
+            <small>
+              {% if docu.file %}
+                <p> <img src="/static/images/docu.png" style="width: 40px;" alt=""> 
+                  <a style="text-decoration: none; font-weight: bold; color: brown;" href="{{ docu.file.url }}">
+                    {% if LC == 'hu' %}{{ docu.file_titel_hu }}{% endif %}
+                    {% if LC == 'en' %}{{ docu.file_titel_en }}{% endif %}
+                  </a>
+                </p>
+              {% endif %} 
+            </small>
+            <p style="text-align:left; font-style: italic;">{{ docu.record_date }} |  {{ docu.picked }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function myFunction(type) {
+    if(type == 'it'){
+      var x = document.getElementById("myDIV_it");
+      if (x.style.display === "none") {
+        x.style.display = "block"; 
+
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        //var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+        
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'hr'){
+      var x = document.getElementById("myDIV_hr");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        //var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'production'){
+      var x = document.getElementById("myDIV_production");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+      //  var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'maintenance'){
+      var x = document.getElementById("myDIV_maintenance");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        //var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'qaqc'){
+      var x = document.getElementById("myDIV_qaqc");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+       // var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'scm'){
+      var x = document.getElementById("myDIV_scm");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        //var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'r&d'){
+      var x = document.getElementById("myDIV_randd");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        //var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'purchasing'){
+      var x = document.getElementById("myDIV_purchasing");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        //var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'kaizen'){
+      var x = document.getElementById("myDIV_kaizen");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        //var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'sales'){
+      var x = document.getElementById("myDIV_sales");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        //var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'marketing'){
+      var x = document.getElementById("myDIV_marketing");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        //var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'finance'){
+      var x = document.getElementById("myDIV_finance");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        //var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'ga'){
+      var x = document.getElementById("myDIV_ga");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        //var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }else if(type == 'egyeb'){
+      var x = document.getElementById("myDIV_egyeb");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var y1 = document.getElementById("myDIV_hr");          y1.style.display = "none";
+        var y2 = document.getElementById("myDIV_it");          y2.style.display = "none";
+        var y3 = document.getElementById("myDIV_production");  y3.style.display = "none";
+        var y4 = document.getElementById("myDIV_maintenance"); y4.style.display = "none";
+        var y5 = document.getElementById("myDIV_qaqc");        y5.style.display = "none";
+        var y6 = document.getElementById("myDIV_scm");         y6.style.display = "none";
+        var y7 = document.getElementById("myDIV_randd");       y7.style.display = "none";
+        var y8 = document.getElementById("myDIV_purchasing");  y8.style.display = "none";
+        var y9 = document.getElementById("myDIV_kaizen");      y9.style.display = "none";
+        var y10 = document.getElementById("myDIV_sales");      y10.style.display = "none";
+        var y11 = document.getElementById("myDIV_marketing");  y11.style.display = "none";
+        var y12 = document.getElementById("myDIV_finance");    y12.style.display = "none";
+        var y13 = document.getElementById("myDIV_ga");         y13.style.display = "none";
+        //var y14 = document.getElementById("myDIV_egyeb");      y14.style.display = "none";
+      } else {
+        x.style.display = "none";
+      }
+   }
+    
+}
+
+</script>
+
+{% endblock %}

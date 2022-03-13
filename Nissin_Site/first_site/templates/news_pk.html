@@ -1,0 +1,37 @@
+{% extends 'base.html' %}     <!--összekapcsol a fejlcéses base.hmtl-el-->
+{% load i18n %}
+{% block active_news %}active{% endblock %}
+
+
+{% block content_1 %}
+  {% get_current_language as LC %} <!-- LC be teszi vagy a hu vagy az en karaktert -->
+    {% for item in all %}  
+     
+      <div id="section{{ item.pk }}" class="carousel slide text-center" data-bs-ride="carousel"> 
+        {% if item.img %}>
+          <img src="{{ item.img.url }}"  class="d-block w-100 h-400 shadow mb-3" alt="...">
+        {% else %}
+          <img src="/static/images/default_news.jpg"  class="d-block w-100 h-400 shadow mb-3" alt="...">
+        {% endif %}  
+
+        {% if LC == 'hu' %}
+          <h3>{{ item.titel_hu }}</h3>
+
+          <p style="text-align:justify">{{ item.short_text_hu }}</p>
+          <p style="text-align:justify">{{ item.content_hu|safe }}</p>
+        {% endif %}
+        {% if LC == 'en' %}
+          <h3>{{ item.titel_en }}</h3>
+
+          <p style="text-align:justify">{{ item.short_text_en }}</p>
+          <p style="text-align:justify">{{ item.content_en|safe }}</p>
+        {% endif %}
+        <p style="text-align:left; font-style: italic;">{{ item.record_date }} |  {{ item.picked }}</p>
+        <a href="{% url 'home' %}#section{{ item.type }}{{ item.pk }}"><button type="button" class="btn btn-outline-danger">{% translate "Vissza a kezdőoldalra" %}</button></a>
+        <a href="{% url 'news' %}#section{{ item.pk }}"><button type="button" class="btn btn-outline-danger">{% translate "Vissza a hírekhez" %}</button></a>
+        
+      </div>
+      <br\>
+    {% endfor %} 
+{% endblock %}
+
